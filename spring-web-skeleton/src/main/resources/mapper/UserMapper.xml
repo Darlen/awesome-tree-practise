@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tree.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.tree.model.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="pswd" property="pswd" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, nickname, email, pswd, create_time, last_login_time,status
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from u_user
+    where id = #{id}
+  </select>
+
+    <select id="getAllUser" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from u_user
+    </select>
+
+    <insert id="addUser"  parameterType="com.tree.model.User">
+        insert into u_user(nickname,email,status,modify_Time,create_Time) values(#{nickname},#{email},#{status},now(),now())
+    </insert>
+
+    <update id="updateById" parameterType="com.tree.model.User">
+        update u_user set nickname = #{nickname},email=#{email},status=#{status},modify_Time=now()
+    </update>
+
+
+</mapper>
