@@ -129,7 +129,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public MyPropertyEditorRegister propertyEditorRegister(){
-        logger.info("ConfigurableWebBindingInitializer");
+        logger.info("entering ConfigurableWebBindingInitializer...");
         MyPropertyEditorRegister register = new MyPropertyEditorRegister();
         register.setFormat("yyyy-MM-dd");
         return register;
@@ -194,6 +194,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        logger.info("entering addResourceHandlers...");
         registry.addResourceHandler("/static/**").addResourceLocations("/WEB-INF/static/");
         registry.addResourceHandler("/upload/**").addResourceLocations("file:////opt/data/nas/");
         super.addResourceHandlers(registry);
