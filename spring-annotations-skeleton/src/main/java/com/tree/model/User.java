@@ -18,10 +18,10 @@ import java.util.Date;
 */
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
-	//0:禁止登录
-	public static final Long _0 = new Long(0);
-	//1:有效
-	public static final Long _1 = new Long(1);
+//	//0:禁止登录
+//	public static final Long _0 = new Long(0);
+//	//1:有效
+//	public static final Long _1 = new Long(1);
 	private Long id;
 	/**昵称*/
     private String nickname;
@@ -34,7 +34,7 @@ public class User implements Serializable{
     /**最后登录时间*/
     private Date lastLoginTime;
     /**1:有效，0:禁止登录*/
-    private Long status;
+    private int status;
     
     
     
@@ -68,10 +68,10 @@ public class User implements Serializable{
         return email;
     }
 
-    public Long getStatus() {
+    public int getStatus() {
 		return status;
 	}
-	public void setStatus(Long status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	public void setEmail(String email) {

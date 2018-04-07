@@ -17,12 +17,13 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /** 
- *Description: <类功能描述>. <br>
+ *Description:
+ * 全局异常：https://blog.csdn.net/butioy_org/article/details/78718405
+ * <br>详解Spring全局异常处理的三种方式 <a>http://www.jb51.net/article/110776.htm</a>
  *<p>
 	处理error的地方
  </p>
- *Makedate:2014年8月27日 下午5:51:32 
- * @author Administrator  
+ * @author tree
  * @version V1.0                             
  */
 public class MySimpleMappingExceptionResolver extends org.springframework.web.servlet.handler.SimpleMappingExceptionResolver {

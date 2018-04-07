@@ -22,12 +22,12 @@ import javax.annotation.Resource;
  * @Version 1.0
  */
 @Configuration
+@PropertySource(value =  {"classpath:app.properties"})
 @ComponentScan(basePackages = "com.tree",
         excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION,value = {Controller.class})})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-//@PropertySource(value =  {"classpath:db.properties","classpath:app.properties"})
-@PropertySource(value =  {"classpath:app.properties"})
-@Import({CacheConfig.class,DataSourceConfig.class})
+
+@Import({CacheConfig.class,DataSourceConfig.class,DaoConfig.class})
 public class AppConfig {
 
 

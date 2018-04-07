@@ -13,8 +13,8 @@
 ${pageContext.request.contextPath}
 	<a href="${_contextPath}/logout" target="_top">注销</a> <br>
 
-	<a href="${_contextPath}/demo/findall?locale=en_US">English</a> <br>
-	<a href="${_contextPath}/demo/findall?locale=zh_CN">中文</a> <br>
+	<a href="${_contextPath}/user/list?locale=en_US">English</a> <br>
+	<a href="${_contextPath}/user/list?locale=zh_CN">中文</a> <br>
 	
 	id=${id}
 

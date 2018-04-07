@@ -6,10 +6,7 @@ import com.tree.core.MySimpleMappingExceptionResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -44,6 +41,7 @@ import java.util.Properties;
 */
 @Configuration
 @EnableWebMvc
+@PropertySource(value =  {"classpath:app.properties"})
 @ComponentScan(basePackages = "com.tree", useDefaultFilters = false,
         includeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION,value ={Controller.class})})
 public class WebConfig extends WebMvcConfigurerAdapter {
@@ -79,10 +77,24 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return new SimpleServletHandlerAdapter();
     }
 
+    /**
+     * @Description: 上传文件解析器
+     * <p>
+     *	<上传文件，bean必须为multipartResolver，否则form提交上来会出现异常>
+     *	   form:enctype="multipart/form-data"
+     *	   需要的jar：commons-io.jar , commons-fileupload.jar
+     * </p>
+     * @Param:
+     * @return:
+     * @Author: tree
+     * @Date: 2018/4/7 12:18
+     */
     @Bean
-    public CommonsMultipartResolver commonsMultipartResolver(){
-        logger.info("entering commonsMultipartResolver...");
-        return  new CommonsMultipartResolver();
+    public CommonsMultipartResolver multipartResolver(){
+        logger.info("entering multipartResolver...");
+        CommonsMultipartResolver multipartResolver =  new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(5242880);
+        return multipartResolver;
     }
 
     @Bean

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -34,14 +35,19 @@ import java.io.IOException;
 public class DaoConfig {
     private static final Logger logger = Logger.getLogger(DaoConfig.class);
 
-    @Resource(name = "dataSource")
-    private DataSource dataSource;
-
+    /**
+     * @Description: 配置SqlSessionFactory
+     * <p>
+     *     设置Mybatis配置文件与Mapper文件， 并设置datasource
+     *	Note: 注意参数dataSource的注入-->Spring根据上下文自动发现datasource bean， 并注入
+     * </p>
+     * @Author: tree
+     * @Date: 2018/4/7 10:55
+     */
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactory() throws IOException {
+    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException {
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
         sqlSessionFactory.setConfigLocation(new ClassPathResource("mybatis/mybatis.xml"));
-        String s [] = new String[]{"1"};
         // 配置mapper的扫描，找到所有的mapper.xml映射文件
         org.springframework.core.io.Resource[] resources = new PathMatchingResourcePatternResolver()
                 .getResources("mybatis/mapper/*.xml");
@@ -58,7 +64,7 @@ public class DaoConfig {
     }
 
     @Bean
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
+    public PlatformTransactionManager annotationDrivenTransactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 

@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.tree.model.User;
@@ -27,18 +26,17 @@ import com.tree.utils.HttpClientUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
 /**
-* Package: com.tree.controller
+ * Package: com.tree.controller
  * Description: <类功能描述>.
  *  <p>
  * <br> 1. list user --> list(demo.jsp)
@@ -58,12 +56,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
  */
 @Controller
 @RequestMapping("/user")
-public class DemoController {
+public class UserController {
 
-	private static final Logger logger = Logger.getLogger(DemoController.class);
+	private static final Logger logger = Logger.getLogger(UserController.class);
 
     @Value("${nas.path}")
     private String nasPath;
+    @Autowired
+    private Environment env;
 
 	@Autowired
 	private UserService userService;
@@ -93,7 +93,7 @@ public class DemoController {
 
     }
 
-	@RequestMapping("/{id}")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String getUser(@PathVariable("id") Long id, Model model) {
 		logger.info("demo01  id==" + id);
         User user = userService.getUserById(id);
@@ -168,17 +168,21 @@ public class DemoController {
         return "delete user cache success:"+id;
 	}
 
-    @RequestMapping(value = "/uploadPic" ,method=RequestMethod.POST, params = "method=uploadPic")
-    public String upload(HttpServletRequest request, @RequestParam(value = "file") MultipartFile multipartFile, ModelMap model) {
+    @RequestMapping(value = "/uploadPic" ,method=RequestMethod.POST)/*, params = "method=uploadPic"*/
+    public String upload(HttpServletRequest request,
+                         @RequestParam(value = "file") MultipartFile multipartFile, ModelMap model) {
+        logger.info("==========uploadPic==============");
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMddHH");
+        String dataFolder = dateformat.format(new Date());
         /**得到图片保存目录的真实路径**/
-        String logoRealPathDir = nasPath ;
+        String logoRealPathDir = env.getProperty("nas.path")+File.separator+dataFolder ;
+
         /**根据真实路径创建目录**/
         File logoSaveFile = new File(logoRealPathDir);
         if(!logoSaveFile.exists())
             logoSaveFile.mkdirs();
         /**使用UUID生成文件名称**/
-        String logImageName = dateformat.format(new Date()) + "/" + UUID.randomUUID().toString()+ multipartFile.getOriginalFilename() ;//构建文件名称
+        String logImageName =  UUID.randomUUID().toString()+"_"+ multipartFile.getOriginalFilename() ;//构建文件名称
         /**拼成完整的文件保存路径加文件**/
         String fileName = logoRealPathDir + File.separator   + logImageName;
         File file = new File(fileName);
@@ -191,12 +195,12 @@ public class DemoController {
             e.printStackTrace();
         }
         /**必须转化为静态文件映射的Nas地址才能访问*/
-        String realUrl = "http://localhost:8080/upload/"+logImageName;
+        String httpUrl = "http://localhost:8080/upload/"+dataFolder+File.separator+logImageName;
         logger.info("abs file path ："+fileName);
-        logger.info("fileUrl："+realUrl);
+        logger.info("fileUrl："+httpUrl);
         model.put("fileName", fileName);
         model.addAttribute("absFileUrl", ""+fileName);
-        model.addAttribute("fileUrl", realUrl);
+        model.addAttribute("fileUrl", httpUrl);
         return "uploadResult";
 
     }

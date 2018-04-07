@@ -30,7 +30,7 @@
 
 
 				<div class="botton">
-					<input name="demo" type="submit"
+					<input name="demo" type="AddUserSubmit"
 						value="submit"  />
 				</div>
 			</div>

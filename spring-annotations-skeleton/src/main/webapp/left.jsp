@@ -15,7 +15,7 @@
 		<%--<li><a href="${pageContext.request.contextPath}/user/xmlmock" target="main">demo xml</a></li>--%>
 		<li><a href="${pageContext.request.contextPath}/user/jsonmock" target="main">demo json</a></li>
 		<li><a href="${pageContext.request.contextPath}/user/flashcache/1" target="main">删除缓存</a></li>
-		<li><a href="${pageContext.request.contextPath}/user/presave" target="main">上传图片</a></li>
+		<li><a href="${pageContext.request.contextPath}/user/uploadPic" target="main">上传图片</a></li>
 	</ul>
 </body>
 </html>
