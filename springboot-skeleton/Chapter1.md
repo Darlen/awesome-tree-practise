@@ -25,6 +25,11 @@ logging.config=classpath:logback-spring.xml
   - 详情参考logback-spring.xml文件
   - 配置appender异步到db
 
+#### 参考：
+- [默认日志logback配置解析](http://tengj.top/2017/04/05/springboot7/)
+- [Spring Boot日志管理]()http://blog.didispace.com/springbootlog/)
+
+
 #### jdbc
 
 #### swagger
