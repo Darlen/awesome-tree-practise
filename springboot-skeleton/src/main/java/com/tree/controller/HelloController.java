@@ -1,5 +1,8 @@
 package com.tree.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.tree.model.User;
+import com.tree.model.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +27,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
     private static final Logger logger = LoggerFactory.getLogger(HelloController.class);
-
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping("/hello")
-    public String hello(){
+    public String hello() {
         logger.debug("Hello World Debug");
         logger.info("Hello World Info");
         return "hello world";
+
+    }
+
+    @RequestMapping("/saveUser")
+    public User saveUser() {
+        User user = userRepository.save(new User("aaa", "aaa@163.com", "123456"));
+        logger.info(JSON.toJSONString(user));
+        return user;
     }
 
 }
