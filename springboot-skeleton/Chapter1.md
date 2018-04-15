@@ -1,13 +1,12 @@
 ## Chapter1
-### 要点
-#### 1.  通过Spring initialer脚手架建立web，mybatis的结构， 并配置jdbc的配置与测试controller, 详细参考ApplicationWebTest与application.properties
+### 1.  通过Spring initialer脚手架建立web，mybatis的结构， 并配置jdbc的配置与测试controller, 详细参考ApplicationWebTest与application.properties
 ```
 spring.datasource.url=jdbc:mysql://127.0.0.1:3306/shiro_demo
 spring.datasource.username=root
 spring.datasource.password=
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 ```
-#### 2. 日志设置
+### 2. 日志设置
 默认Spring boot是用的logback， 其配置文件为base.xml : spring-boot-2.0.1.RELEASE.jar!/org/springframework/boot/logging/logback/base.xml
 ```
 # 开启日志
@@ -29,7 +28,13 @@ logging.config=classpath:logback-spring.xml
 - [默认日志logback配置解析](http://tengj.top/2017/04/05/springboot7/)
 - [Spring Boot日志管理]()http://blog.didispace.com/springbootlog/)
 
-#### 3. jdbc之jdbcTemplate
+### 3. JDBC
+#### 3.1. jdbc之jdbcTemplate
+参考jdbctemplate包中的User与UserService类（extends JpaRepository），测试类参考JdbcTemplate
+- 1. 创建Model对象 --> 参考jpa包下的User对象
+- 2. 创建Service对象 --> 参考UserService
+- 3. 注入JdbcTemplate
+- 4. 测试类 --> JdbcTemplateTest
 
 
 ##### 参考
@@ -38,7 +43,7 @@ logging.config=classpath:logback-spring.xml
 
 
 
-#### 4. jdbc之jpa
+#### 3.2. jdbc之jpa
 参考jpa包中的User与UserRepository类（extends JpaRepository），测试类参考JpaTest
 - 1. 创建Model对象 --> 参考jpa包下的User对象
 - 2. 创建Repository对象 --> 参考UserRepository
@@ -48,7 +53,7 @@ logging.config=classpath:logback-spring.xml
 - [Spring Boot中使用Spring-data-jpa让数据访问更简单、更优雅](http://blog.didispace.com/springbootdata2/)
 
 
-#### 5. jdbc之mybatis
+#### 3.3. jdbc之mybatis
 （具体参考）
 - 1. 创建Model对象 --> 参考：User对象
 - 2. 创建Mapper对象，并使用@Mapper注解（
@@ -78,7 +83,7 @@ c. selectProvider 应对复杂sql
 ##### 参考：
 - [springboot mybatis视频](https://ke.qq.com/webcourse/index.html#course_id=230866&term_id=100272363&taid=1585452817810898&vid=o1422wn486v)
 - [Spring Boot干货系列：（九）数据存储篇-SQL关系型数据库之MyBatis的使用](http://tengj.top/2017/04/23/springboot9/)
-
+- [Mybatis的注解应用之关系映射](https://blog.csdn.net/owen_william/article/details/51815473)
 
 
 
