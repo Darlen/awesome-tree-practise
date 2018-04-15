@@ -25,12 +25,63 @@ logging.config=classpath:logback-spring.xml
   - 详情参考logback-spring.xml文件
   - 配置appender异步到db
 
-#### 参考：
+##### 参考：
 - [默认日志logback配置解析](http://tengj.top/2017/04/05/springboot7/)
 - [Spring Boot日志管理]()http://blog.didispace.com/springbootlog/)
 
+#### 3. jdbc之jdbcTemplate
 
-#### jdbc
+
+##### 参考
+- [Spring Boot中使用JdbcTemplate访问数据库](http://blog.didispace.com/springbootdata1/)
+- [Spring Boot干货系列：（八）数据存储篇-SQL关系型数据库之JdbcTemplate的使用](http://tengj.top/2017/04/13/springboot8/)
+
+
+
+#### 4. jdbc之jpa
+参考jpa包中的User与UserRepository类（extends JpaRepository），测试类参考JpaTest
+- 1. 创建Model对象 --> 参考jpa包下的User对象
+- 2. 创建Repository对象 --> 参考UserRepository
+- 3. 测试类 --> JpaTest
+
+##### 参考：
+- [Spring Boot中使用Spring-data-jpa让数据访问更简单、更优雅](http://blog.didispace.com/springbootdata2/)
+
+
+#### 5. jdbc之mybatis
+（具体参考）
+- 1. 创建Model对象 --> 参考：User对象
+- 2. 创建Mapper对象，并使用@Mapper注解（
+@Insert
+@Update
+@Delete
+@Select） --> 参考UserMapper对象
+其中@Mapper 映射器 相当于以下2种方式
+```
+a. <property name="mapperLocations" value="classpath*:mapper/*.xml" />
+b. <!-- 使用相对于类路径的资源引用 -->
+   <mappers>
+     <mapper resource="org/mybatis/builder/AuthorMapper.xml"/>
+     <mapper resource="org/mybatis/builder/BlogMapper.xml"/>
+     <mapper resource="org/mybatis/builder/PostMapper.xml"/>
+   </mappers>
+```
+```
+a. Results用来处理字段名与属性名不一致问题：
+应对对象属性与数据库中的clumn不一致的情况(注意User中的pwd名字与数据库中pswd字段名字不一样)
+b. ResultMap能解决多个方法都需要写results映射的问题
+c. selectProvider 应对复杂sql
+
+```
+- 3. 测试类 --> MybatisTest
+
+##### 参考：
+- [springboot mybatis视频](https://ke.qq.com/webcourse/index.html#course_id=230866&term_id=100272363&taid=1585452817810898&vid=o1422wn486v)
+- [Spring Boot干货系列：（九）数据存储篇-SQL关系型数据库之MyBatis的使用](http://tengj.top/2017/04/23/springboot9/)
+
+
+
+
 
 #### swagger
 
@@ -39,3 +90,9 @@ logging.config=classpath:logback-spring.xml
  #### 1. [Spring Boot快速入门](http://blog.didispace.com/spring-boot-learning-1/)
  #### 2. [Spring Boot开发Web应用](http://blog.didispace.com/springbootweb/)
  #### 3. [Spring Boot工程结构推荐](http://blog.didispace.com/springbootproject/)
+
+
+
+ ### 总参考
+ - [Spring-Boot干货系列](http://tengj.top/categories/Spring-Boot干货系列/)
+ - [Spring Boot基础教程](https://gitee.com/didispace/SpringBoot-Learning)

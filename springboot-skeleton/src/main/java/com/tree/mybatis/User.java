@@ -1,11 +1,10 @@
-package com.tree.model;
+package com.tree.mybatis;
 
 
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
-import javax.annotation.Generated;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,37 +18,25 @@ import java.util.Date;
  * @Date  2018/4/9 23:11
  * @Version 1.0
  */
-@Entity
-//@Table
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue
 	private Long id;
-    @Column
     private String nickname;
-    @Column
     private String email;
-    @Column
-    private String pswd;
-    @Column
+    private String pwd;
     private Date createTime;
-    @Column
     private Date lastLoginTime;
-    @Column
     private Long status;
+    private Date modifyTime;
 
     public User() {
     }
 
-    @Column
-    private Date modifyTime;
 
-
-    public User(String nickname, String email, String pswd) {
+    public User(String nickname, String email, String pwd) {
         this.nickname = nickname;
         this.email = email;
-        this.pswd = pswd;
+        this.pwd = pwd;
     }
 
     public Long getId() {
@@ -76,12 +63,12 @@ public class User implements Serializable{
         this.email = email;
     }
 
-    public String getPswd() {
-        return pswd;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setPswd(String pswd) {
-        this.pswd = pswd;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     public Date getCreateTime() {

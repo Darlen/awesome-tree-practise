@@ -2,7 +2,7 @@ package com.tree;
 
 import com.alibaba.fastjson.JSON;
 import com.tree.jpa.UserRepository;
-import com.tree.model.User;
+import com.tree.jpa.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
