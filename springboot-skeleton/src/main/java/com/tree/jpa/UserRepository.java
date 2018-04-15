@@ -1,4 +1,4 @@
-package com.tree.model;
+package com.tree.jpa;
 
 import com.tree.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,10 +16,6 @@ import org.springframework.data.repository.query.Param;
  * @Version 1.0
  */
 public interface UserRepository extends JpaRepository<User,Long>{
-//    User findByName(String name);
-//
-//    User findByNameAndAge(String name, Integer age);
-
     @Query("from User u where u.nickname=:nickname")
     User findUser(@Param("nickname") String nickname);
 }

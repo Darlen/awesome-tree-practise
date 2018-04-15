@@ -38,8 +38,13 @@ public class User implements Serializable{
     private Date lastLoginTime;
     @Column
     private Long status;
+
+    public User() {
+    }
+
     @Column
     private Date modifyTime;
+
 
     public User(String nickname, String email, String pswd) {
         this.nickname = nickname;

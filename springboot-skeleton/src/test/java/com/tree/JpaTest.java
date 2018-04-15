@@ -1,7 +1,8 @@
 package com.tree;
 
+import com.alibaba.fastjson.JSON;
+import com.tree.jpa.UserRepository;
 import com.tree.model.User;
-import com.tree.model.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,12 @@ public class JpaTest {
     private UserRepository userRepository;
 
     @Test
-    public void getUser(){
+    public void addUser(){
         userRepository.save(new User("aaa","aaa@163.com","123456"));
+    }
+
+    @Test
+    public void getUser(){
+        System.err.println("find User result: "+JSON.toJSON(userRepository.findUser("aaa")));
     }
 }
