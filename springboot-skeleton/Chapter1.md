@@ -79,6 +79,7 @@ c. selectProvider 应对复杂sql
 
 ```
 - 3. 测试类 --> MybatisTest
+- 4. [TODO] [Spring Boot干货系列：（十一）数据存储篇-Spring Boot整合Mybatis通用Mapper插件](http://tengj.top/2017/12/20/springboot11/)
 
 ##### 参考：
 - [springboot mybatis视频](https://ke.qq.com/webcourse/index.html#course_id=230866&term_id=100272363&taid=1585452817810898&vid=o1422wn486v)
