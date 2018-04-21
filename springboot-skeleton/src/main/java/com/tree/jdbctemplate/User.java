@@ -14,7 +14,7 @@ import java.util.Date;
  * @Date  2018/4/9 23:11
  * @Version 1.0
  */
-public class User implements Serializable{
+public class User{
 	private static final long serialVersionUID = 1L;
 	private Long id;
     private String nickname;
@@ -27,6 +27,7 @@ public class User implements Serializable{
 
     public User() {
     }
+
 
 
     public User(String nickname, String email, String pwd) {
@@ -97,5 +98,19 @@ public class User implements Serializable{
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", createTime=" + createTime +
+                ", lastLoginTime=" + lastLoginTime +
+                ", status=" + status +
+                ", modifyTime=" + modifyTime +
+                '}';
     }
 }
