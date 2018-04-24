@@ -3,6 +3,7 @@ package com.tree.controller;
 import com.alibaba.fastjson.JSON;
 import com.tree.jpa.model.User;
 import com.tree.jpa.UserRepository;
+import com.tree.util.SpringContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,8 @@ public class HelloController {
     public String hello() {
         logger.debug("Hello World Debug");
         logger.info("Hello World Info");
-        return "hello world";
+
+        return "hello world"+JSON.toJSONString(SpringContextHolder.getBeanNames());
 
     }
 

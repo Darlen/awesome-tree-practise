@@ -6,6 +6,11 @@ spring.datasource.username=root
 spring.datasource.password=
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 ```
+```
+注意扫描包：
+默认是扫描启动类（SpringbootSkeletonApplication）当前包和当前包路径下的所有子路径下的所有类--参考：@SpringBootTest
+如果想扫描其他包，请使用@ComponetScan
+```
 ### 2. 日志设置
 默认Spring boot是用的logback， 其配置文件为base.xml : spring-boot-2.0.1.RELEASE.jar!/org/springframework/boot/logging/logback/base.xml
 ```
@@ -92,6 +97,18 @@ c. selectProvider 应对复杂sql
 #### swagger
 
 
+
+
+### 使用aware接口注入applicationContext， 具体参考<a>SpringContextHolder</a>
+具体实现原理：
+```
+AbstractAutowireCapableBeanFactory(initializeBean)
+AbstractAutowireCapableBeanFactory(applyBeanPostProcessorsBeforeInitialization)
+ApplicationContextAwareProcessor(postProcessBeforeInitialization)
+ApplicationContextAwareProcessor(invokeAwareInterfaces)
+SpringContextHolder(setApplicationContext)
+```
+
 ### 参考.
  #### 1. [Spring Boot快速入门](http://blog.didispace.com/spring-boot-learning-1/)
  #### 2. [Spring Boot开发Web应用](http://blog.didispace.com/springbootweb/)
@@ -102,3 +119,4 @@ c. selectProvider 应对复杂sql
  ### 总参考
  - [Spring-Boot干货系列](http://tengj.top/categories/Spring-Boot干货系列/)
  - [Spring Boot基础教程](https://gitee.com/didispace/SpringBoot-Learning)
+ - [Spring Boot 核心技术](https://gitee.com/tree3170/spring-boot-chapter)
