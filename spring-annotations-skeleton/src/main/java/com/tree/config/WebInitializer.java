@@ -4,7 +4,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 /**
  * @ClassName com.tree.config
- * Description: <类功能描述>. <br>
+ * Description:
  * <p>
  * <使用说明>
  * </p>

@@ -31,7 +31,7 @@ import java.util.Properties;
 
 /**
 * Package: com.tree.config
-* Description: <类功能描述>. <br>
+* Description: Web Config的配置文件入口
 * <p>
 *	<使用说明>
 * </p>

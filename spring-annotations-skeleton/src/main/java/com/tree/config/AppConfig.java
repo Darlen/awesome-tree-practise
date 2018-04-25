@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 
 /**
  * com.tree.config
- * Description: <类功能描述>. <br>
+ * Description: 加载应用的Application Config
  * <p>
  * <使用说明>
  * </p>
@@ -26,7 +26,6 @@ import javax.annotation.Resource;
 @ComponentScan(basePackages = "com.tree",
         excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION,value = {Controller.class})})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-
 @Import({CacheConfig.class,DataSourceConfig.class,DaoConfig.class})
 public class AppConfig {
 
