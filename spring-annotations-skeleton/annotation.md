@@ -2,7 +2,7 @@
 #
 
 
-## 引入druid监控，具体参考annotation-druid.md：
+## 引入druid监控，具体参考[annotation-druid.md](annotation-druid.md)：
 
 
 
