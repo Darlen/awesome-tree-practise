@@ -76,4 +76,7 @@ public class DruidStatFilter extends WebStatFilter {
 
 
 ## 参考
-### 1.
+### 1. [druid 源码分析与学习（含详细监控设计思路的彩蛋）](http://herman-liu76.iteye.com/blog/2308563)
+### 2. [保存Druid的监控记录](http://www.cnblogs.com/wanghuijie/p/druid_stat_log.html)
+
+
