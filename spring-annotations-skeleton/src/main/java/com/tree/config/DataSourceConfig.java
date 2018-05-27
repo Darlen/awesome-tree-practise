@@ -1,5 +1,8 @@
 package com.tree.config;
 
+import com.alibaba.druid.filter.Filter;
+import com.alibaba.druid.filter.stat.StatFilter;
+import com.alibaba.druid.pool.DruidDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,12 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ClassName com.tree.config
@@ -44,15 +52,58 @@ public class DataSourceConfig {
     @Autowired
     private Environment env;
 
+//    @Bean(name = "dataSource")
+//    public DataSource dataSource(){
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(driverClass);
+//        dataSource.setUrl(jdbcUrl);
+//        dataSource.setUsername(username);
+//        dataSource.setPassword(password);
+//        return dataSource;
+//    }
+
     @Bean(name = "dataSource")
-    public DataSource dataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//    TODO 需要设置init-method, destroy method，不然会内存溢出
+    @PreDestroy
+    public DataSource druidDataSource() throws SQLException {
+        DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(driverClass);
         dataSource.setUrl(jdbcUrl);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
+        //<!-- 配置初始化大小、最小、最大 -->
+        dataSource.setInitialSize(1);
+        dataSource.setMinIdle(1);
+        dataSource.setMaxActive(20);
+        //<!-- 配置获取连接等待超时的时间 -->
+        dataSource.setMaxWait(60000);
+        //<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        dataSource.setTimeBetweenEvictionRunsMillis(300000);
+
+        dataSource.setValidationQuery("SELECT 'x'");
+        dataSource.setTestWhileIdle(true);
+        dataSource.setTestOnBorrow(false);
+        dataSource.setTestOnReturn(false);
+
+//      <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        dataSource.setPoolPreparedStatements(true);
+        dataSource.setMaxPoolPreparedStatementPerConnectionSize(20);
+//        <!-- 配置监控统计拦截的filters -->
+        dataSource.setFilters("stat,log4j");
+        List<Filter> proxyFilter = new ArrayList<Filter>();
+        proxyFilter.add(statFilter());
+        dataSource.setProxyFilters(proxyFilter);
         return dataSource;
     }
+
+    @Bean("stat-filter")
+    public StatFilter statFilter(){
+        StatFilter statFilter = new StatFilter();
+        statFilter.setSlowSqlMillis(10);
+        statFilter.setLogSlowSql(true);
+        return statFilter;
+    }
+
 
 
 }

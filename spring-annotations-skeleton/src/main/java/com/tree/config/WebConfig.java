@@ -37,6 +37,16 @@ import java.util.Properties;
 * Description: Web Config的配置文件入口
 * <p>
 *	<使用说明>
+ *	   1. viewResolver
+ *	   2. MultilpartResolver
+ *	   3. ExceptionResolver
+ *	   4. CookieResolver
+ *	   5. Interceptor
+ *	   6. propertyEditorRegister
+ *	   7. messageConverter
+ *	   8. messageResource
+ *	   9. handleAdapter
+ *
 * </p>
 * @Author tree
 * @Date  2018/4/5 22:08
@@ -134,11 +144,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     }
 
-    /**
-     * 配置_Druid和Spring关联监控配置
-     * @return
-     */
-
+//     ======================== 配置_Druid和Spring关联监控配置开始==================================================
     @Bean(name = "druid-stat-interceptor")
     public DruidStatInterceptor druidStatInterceptor(){
         logger.info("entering druid-stat-interceptor...");
@@ -152,6 +158,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         creator.setInterceptorNames("druid-stat-interceptor");
         return creator;
     }
+//     =========================配置_Druid和Spring关联监控配置结束=================================================
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
