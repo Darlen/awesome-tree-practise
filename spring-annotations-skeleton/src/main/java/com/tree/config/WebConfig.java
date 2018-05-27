@@ -1,8 +1,11 @@
 package com.tree.config;
 
+import com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator;
+import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
 import com.tree.core.MyInitializingInterceptor;
 import com.tree.core.MyPropertyEditorRegister;
 import com.tree.core.MySimpleMappingExceptionResolver;
+import com.tree.dao.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -131,11 +134,31 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     }
 
+    /**
+     * 配置_Druid和Spring关联监控配置
+     * @return
+     */
+
+    @Bean(name = "druid-stat-interceptor")
+    public DruidStatInterceptor druidStatInterceptor(){
+        logger.info("entering druid-stat-interceptor...");
+        return new DruidStatInterceptor();
+    }
+    @Bean(name = "druid-type-proxyCreator")
+    public BeanTypeAutoProxyCreator druidTypeProxyCreator(){
+        logger.info("entering druid-type-proxyCreator...");
+        BeanTypeAutoProxyCreator creator = new BeanTypeAutoProxyCreator();
+        creator.setTargetBeanType(UserMapper.class);
+        creator.setInterceptorNames("druid-stat-interceptor");
+        return creator;
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         logger.info("entering addInterceptors...");
         registry.addInterceptor(initInterceptor());
         registry.addInterceptor(localeChangeInterceptor());
+//        registry.addInterceptor(druidStatInterceptor());
         logger.info("entered addInterceptors...");
     }
 
