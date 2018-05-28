@@ -2,7 +2,7 @@
 #
 
 
-## 引入druid监控，具体参考：
+## 引入druid监控步骤，具体参考：
 ### servlet升级到3.1.0
 ### pom.xml:
 ```
@@ -72,8 +72,11 @@ public class DruidStatFilter extends WebStatFilter {
 }
 ```
 
+## 设置filter
+配置监控统计拦截的filters:
+具体的filter可参见：META-INF/druid-filter.properties
 
-
+##
 
 ## 参考
 ### 1. [druid 源码分析与学习（含详细监控设计思路的彩蛋）](http://herman-liu76.iteye.com/blog/2308563)

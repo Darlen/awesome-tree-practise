@@ -52,6 +52,11 @@ public class DataSourceConfig {
     @Autowired
     private Environment env;
 
+    /**
+     * 普通datasource
+     * @return
+     * @throws SQLException
+     */
 //    @Bean(name = "dataSource")
 //    public DataSource dataSource(){
 //        DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -62,8 +67,12 @@ public class DataSourceConfig {
 //        return dataSource;
 //    }
 
-    @Bean(name = "dataSource")
-//    TODO 需要设置init-method, destroy method，不然会内存溢出
+    /**
+     * 注册druid datasource
+     * @return
+     * @throws SQLException
+     */
+    @Bean(name = "dataSource",destroyMethod = "close")
     @PreDestroy
     public DataSource druidDataSource() throws SQLException {
         DruidDataSource dataSource = new DruidDataSource();
@@ -88,21 +97,22 @@ public class DataSourceConfig {
 //      <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
         dataSource.setPoolPreparedStatements(true);
         dataSource.setMaxPoolPreparedStatementPerConnectionSize(20);
-//        <!-- 配置监控统计拦截的filters -->
-        dataSource.setFilters("stat,log4j");
-        List<Filter> proxyFilter = new ArrayList<Filter>();
-        proxyFilter.add(statFilter());
-        dataSource.setProxyFilters(proxyFilter);
+//        <!-- 配置监控统计拦截的filters:
+//          具体的filter可参见：META-INF/druid-filter.properties-->
+        dataSource.setFilters("stat,log4j,mergeStat");
+//        List<Filter> proxyFilter = new ArrayList<Filter>();
+//        proxyFilter.add(statFilter());
+//        dataSource.setProxyFilters(proxyFilter);
         return dataSource;
     }
 
-    @Bean("stat-filter")
-    public StatFilter statFilter(){
-        StatFilter statFilter = new StatFilter();
-        statFilter.setSlowSqlMillis(10);
-        statFilter.setLogSlowSql(true);
-        return statFilter;
-    }
+//    @Bean("stat-filter")
+//    public StatFilter statFilter(){
+//        StatFilter statFilter = new StatFilter();
+//        statFilter.setSlowSqlMillis(1);
+//        statFilter.setLogSlowSql(true);
+//        return statFilter;
+//    }
 
 
 
