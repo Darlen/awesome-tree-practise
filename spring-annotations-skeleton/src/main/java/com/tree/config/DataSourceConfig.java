@@ -97,22 +97,29 @@ public class DataSourceConfig {
 //      <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
         dataSource.setPoolPreparedStatements(true);
         dataSource.setMaxPoolPreparedStatementPerConnectionSize(20);
+
+
 //        <!-- 配置监控统计拦截的filters:
 //          具体的filter可参见：META-INF/druid-filter.properties-->
-        dataSource.setFilters("stat,log4j,mergeStat");
-//        List<Filter> proxyFilter = new ArrayList<Filter>();
-//        proxyFilter.add(statFilter());
-//        dataSource.setProxyFilters(proxyFilter);
+        dataSource.setFilters("log4j,mergeStat");
+        List<Filter> proxyFilter = new ArrayList<Filter>();
+        proxyFilter.add(statFilter());
+        dataSource.setProxyFilters(proxyFilter);
+
+
         return dataSource;
     }
 
-//    @Bean("stat-filter")
-//    public StatFilter statFilter(){
-//        StatFilter statFilter = new StatFilter();
-//        statFilter.setSlowSqlMillis(1);
-//        statFilter.setLogSlowSql(true);
-//        return statFilter;
-//    }
+    /**
+     * 设置具体的Druid的Filter
+     */
+    @Bean("stat-filter")
+    public StatFilter statFilter(){
+        StatFilter statFilter = new StatFilter();
+        statFilter.setSlowSqlMillis(3);
+        statFilter.setLogSlowSql(true);
+        return statFilter;
+    }
 
 
 
